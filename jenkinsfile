@@ -14,14 +14,14 @@ pipeline {
         }
         stage('Test') {
             steps {
-                   withSonarQubeEnv(credentialsId: 'sonar-cred') {
+                   withSonarQubeEnv(installationName: 'sonarqube' , credentialsId: 'sonar-cred') {
                      sh '''
                         cd backend
                         mvn sonar:sonar -Dsonar.projectKey=studentapp'''
                     }
                 }
                 
-            }
+            
         }
         stage('Deploy') {
             steps {
