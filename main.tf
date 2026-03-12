@@ -4,7 +4,7 @@ region = "ap-northeast-3"
 
 terraform {
    backend "s3" {
-      bucket = ""
+      bucket = "easy-crud-b33-bkt"
       key    = "state/terraform.tfstate"
       region = "ap-northeast-3"
   }
