@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git-Pull') {
+            steps {
+                git branch: 'devops', url: 'https://github.com/SanjayTomar22/EasyCRUD.git'
+            }
+        }
+	stage('Backend-Image') {
+            steps {
+                sh '''cd backend
+                docker build -t kubesanjay/easy-backend:latest .'''
+            }
+        }
+	stage('Frontedn-Image') {
+            steps {
+                sh '''cd frontend
+                docker build -t kubesanjay/easy-frontend:latest .'''
+            }
+        }
+	stage('Docker-Push') {
+            steps {
+                sh '''docker push kubesanjay/easy-backend:latest
+                      docker push kubesanjay/easy-frontend:latest'''
+            }
+        }
+	stage('Apply') {
+            steps {
+                sh 'kubectl apply -f simple-deploy/.'
+            }
+        }
+    }
+}
