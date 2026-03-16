@@ -25,6 +25,12 @@ pipeline {
                       docker push kubesanjay/easy-frontend:latest'''
             }
         }
+	stage('Docker-Clean') {
+            steps {
+                sh '''docker rmi -f kubesanjay/easy-backend:latest
+                      docker rmi -f kubesanjay/easy-frontend:latest'''
+            }
+        }
 	stage('Apply') {
             steps {
                 sh 'kubectl apply -f simple-deploy/.'
